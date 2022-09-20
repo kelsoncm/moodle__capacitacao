@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source _/functions
+
+cp -r ./confs/examples ./confs/enabled
+
+echo ""; echo_info "Parar o mundo"
+_/down
+
+# if [[ ! -d src/php/moodle__auth_suap ]]; then
+#     echo ""; echo_info "Clonando o repositório do moodle__auth_suap"
+#     git clone https://github.com/cte-zl-ifrn/moodle__auth_suap.git src/php/moodle__auth_suap
+# fi
+
+mkdir -p volumes/moodledata && chmod -R 777 volumes/moodledata
+
+echo ""; echo_info "Construir as imagens"
+_/build
+
+echo ""; echo_info "Reiniciando o mundo novamente"
+_/up
